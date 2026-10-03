@@ -1,6 +1,6 @@
 # Juice Shop Login Form (Secure Demo)
 
-A simple HTML/CSS/JavaScript login form built for Homework 2B (Part 2), mimicking the OWASP Juice Shop login page.
+A simple HTML/CSS/JavaScript login form built for CSCE 703 - Homework 2B (Part 2), mimicking the OWASP Juice Shop login page.
 
 ## What it does
 - Collects an email and password
