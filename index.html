@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Juice Shop Login (Secure Demo)</title>
+    <style>
+    body { font-family: 'Comic Sans MS', Arial, sans-serif; background: linear-gradient(135deg, #ffd1e8, #ffb6d9);
+           display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .login-box { background: #fff0f6; padding: 2rem; border-radius: 20px; width: 300px;
+                 box-shadow: 0 8px 24px rgba(255, 105, 180, 0.4); border: 3px solid #ff85c0; }
+    h2 { color: #d6336c; text-align: center; }
+    input { width: 100%; padding: 0.6rem; margin: 0.5rem 0; box-sizing: border-box;
+            border: 2px solid #ffb6d9; border-radius: 10px; }
+    button { width: 100%; padding: 0.7rem; background: #ff69b4; color: white;
+              border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+    button:hover { background: #ff85c0; }
+    .error { color: #e64980; font-size: 0.85rem; min-height: 1.2rem; }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <p class="error" id="errorMsg"></p>
+      <button type="submit">Log in</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+      errorMsg.textContent = '';
+
+      // Client-side validation: prevent empty submissions
+      if (!email || !password) {
+        errorMsg.textContent = 'Email and password cannot be empty.';
+        return;
+      }
+
+      // Client-side validation: email must contain "@", password >= 8 chars
+      if (!email.includes('@')) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+      if (password.length < 8) {
+        errorMsg.textContent = 'Password must be at least 8 characters.';
+        return;
+      }
+
+      // Simulated server-side validation call.
+      // In a real app this would be a fetch() to a backend API that
+      // re-validates everything (never trust client-side checks alone).
+      mockServerValidate(email, password)
+        .then(() => {
+          errorMsg.style.color = '#4caf50';
+          errorMsg.textContent = 'Login validated successfully (demo only).';
+        })
+        .catch((err) => {
+          errorMsg.textContent = err;
+        });
+    });
+
+    function mockServerValidate(email, password) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (!email.includes('@') || password.length < 8) {
+            reject('Server-side validation failed.');
+          } else {
+            resolve();
+          }
+        }, 300);
+      });
+    }
+  </script>
+</body>
+</html>
